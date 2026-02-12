@@ -1,4 +1,4 @@
-figma.showUI(__html__, { width: 360, height: 520, themeColors: true });
+figma.showUI(__html__, { width: 420, height: 580, themeColors: true });
 
 figma.ui.onmessage = (msg: { type: string; svg?: string; name?: string; width?: number; height?: number; message?: string }) => {
   if (msg.type === 'insert-icon' && msg.svg) {
