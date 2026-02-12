@@ -8,7 +8,9 @@
   "networkAccess": {
     "allowedDomains": [
       "https://cdn.jsdelivr.net",
-      "https://data.jsdelivr.com"
+      "https://data.jsdelivr.com",
+      "https://fonts.google.com",
+      "https://fonts.gstatic.com"
     ]
   }
 }
