@@ -1,27 +1,17 @@
 [
   {
-    "name": "puls-logo",
-    "keywords": ["puls", "dips", "logo", "brand"],
-    "file": "icons/puls-logo.svg"
+    "name": "cell-split",
+    "keywords": ["cell", "split", "table", "grid"],
+    "file": "icons/cell_split.svg"
   },
   {
-    "name": "patient",
-    "keywords": ["patient", "person", "user", "healthcare"],
-    "file": "icons/patient.svg"
+    "name": "puls-test1",
+    "keywords": ["puls", "test"],
+    "file": "icons/puls_test1.svg"
   },
   {
-    "name": "journal",
-    "keywords": ["journal", "document", "record", "ehr", "medical record"],
-    "file": "icons/journal.svg"
-  },
-  {
-    "name": "medication",
-    "keywords": ["medication", "medicine", "pill", "drug", "prescription"],
-    "file": "icons/medication.svg"
-  },
-  {
-    "name": "ward",
-    "keywords": ["ward", "bed", "hospital", "room", "inpatient"],
-    "file": "icons/ward.svg"
+    "name": "puls-test2",
+    "keywords": ["puls", "test"],
+    "file": "icons/puls_test2.svg"
   }
 ]
