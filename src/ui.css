@@ -1,0 +1,235 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-size: 12px;
+  color: var(--figma-color-text, #333);
+  background: var(--figma-color-bg, #fff);
+  overflow: hidden;
+  height: 100vh;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Search bar */
+.search-bar {
+  position: relative;
+  padding: 8px;
+  border-bottom: 1px solid var(--figma-color-border, #e5e5e5);
+  flex-shrink: 0;
+}
+
+.search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--figma-color-text-secondary, #999);
+  pointer-events: none;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 6px 8px 6px 28px;
+  border: 1px solid var(--figma-color-border, #e5e5e5);
+  border-radius: 4px;
+  font-size: 12px;
+  outline: none;
+  background: var(--figma-color-bg, #fff);
+  color: var(--figma-color-text, #333);
+}
+
+.search-bar input:focus {
+  border-color: var(--figma-color-border-brand, #0d99ff);
+}
+
+/* Source tabs */
+.source-tabs {
+  display: flex;
+  gap: 2px;
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--figma-color-border, #e5e5e5);
+  flex-shrink: 0;
+}
+
+.tab {
+  flex: 1;
+  padding: 4px 8px;
+  border: none;
+  background: none;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--figma-color-text-secondary, #999);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.tab:hover {
+  background: var(--figma-color-bg-hover, #f0f0f0);
+  color: var(--figma-color-text, #333);
+}
+
+.tab.active {
+  background: var(--figma-color-bg-brand, #0d99ff);
+  color: #fff;
+}
+
+/* Icon grid */
+.icon-grid {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
+  gap: 4px;
+  align-content: start;
+}
+
+.icon-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 2px 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s;
+  min-height: 60px;
+}
+
+.icon-cell:hover {
+  background: var(--figma-color-bg-hover, #f0f0f0);
+}
+
+.icon-cell.selected {
+  background: var(--figma-color-bg-brand-tertiary, #e6f4ff);
+  outline: 1.5px solid var(--figma-color-border-brand, #0d99ff);
+}
+
+.icon-cell .icon-preview {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.icon-cell .icon-preview svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--figma-color-text, #333);
+}
+
+.icon-cell .icon-name {
+  margin-top: 2px;
+  font-size: 9px;
+  color: var(--figma-color-text-secondary, #999);
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+  line-height: 1.2;
+}
+
+/* Loading / empty states */
+.loading-state,
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  color: var(--figma-color-text-secondary, #999);
+  font-size: 12px;
+}
+
+/* Bottom bar */
+.bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px;
+  border-top: 1px solid var(--figma-color-border, #e5e5e5);
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+.selected-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  flex: 1;
+}
+
+#selected-name {
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.source-badge {
+  font-size: 9px;
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: var(--figma-color-bg-secondary, #f0f0f0);
+  color: var(--figma-color-text-secondary, #999);
+  flex-shrink: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.insert-btn {
+  padding: 4px 12px;
+  background: var(--figma-color-bg-brand, #0d99ff);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+
+.insert-btn:hover {
+  opacity: 0.9;
+}
+
+.insert-btn:active {
+  opacity: 0.8;
+}
+
+/* Scrollbar styling */
+.icon-grid::-webkit-scrollbar {
+  width: 6px;
+}
+
+.icon-grid::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.icon-grid::-webkit-scrollbar-thumb {
+  background: var(--figma-color-border, #ccc);
+  border-radius: 3px;
+}
+
+.icon-grid::-webkit-scrollbar-thumb:hover {
+  background: var(--figma-color-text-secondary, #999);
+}
+
+/* Sentinel for infinite scroll */
+.scroll-sentinel {
+  height: 1px;
+  grid-column: 1 / -1;
+}

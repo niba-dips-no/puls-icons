@@ -1,0 +1,22 @@
+{
+  "name": "puls-icons",
+  "version": "1.0.0",
+  "description": "Figma plugin for searching and inserting Material Symbols and Puls icons",
+  "scripts": {
+    "build": "npm run build:plugin && npm run build:ui && npm run build:html",
+    "build:plugin": "esbuild src/code.ts --bundle --outfile=dist/code.js --format=iife --platform=neutral --target=es2020",
+    "build:ui": "esbuild src/ui.ts --bundle --outfile=dist/ui.js --format=iife --target=es2020",
+    "build:html": "node build-ui.js",
+    "watch": "concurrently \"npm run watch:plugin\" \"npm run watch:ui\"",
+    "watch:plugin": "esbuild src/code.ts --bundle --outfile=dist/code.js --watch --format=iife --platform=neutral --target=es2020",
+    "watch:ui": "chokidar 'src/ui.ts' 'src/ui.css' -c 'npm run build:ui && npm run build:html'",
+    "dev": "npm run watch"
+  },
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.91.0",
+    "chokidar-cli": "^3.0.0",
+    "concurrently": "^8.2.2",
+    "esbuild": "^0.19.11",
+    "typescript": "^5.3.3"
+  }
+}

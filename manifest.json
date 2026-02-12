@@ -1,0 +1,14 @@
+{
+  "name": "Puls Icons",
+  "id": "puls-icons",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "ui": "dist/ui.html",
+  "editorType": ["figma"],
+  "networkAccess": {
+    "allowedDomains": [
+      "https://cdn.jsdelivr.net",
+      "https://data.jsdelivr.com"
+    ]
+  }
+}

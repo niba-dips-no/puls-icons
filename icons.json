@@ -1,0 +1,27 @@
+[
+  {
+    "name": "puls-logo",
+    "keywords": ["puls", "dips", "logo", "brand"],
+    "file": "icons/puls-logo.svg"
+  },
+  {
+    "name": "patient",
+    "keywords": ["patient", "person", "user", "healthcare"],
+    "file": "icons/patient.svg"
+  },
+  {
+    "name": "journal",
+    "keywords": ["journal", "document", "record", "ehr", "medical record"],
+    "file": "icons/journal.svg"
+  },
+  {
+    "name": "medication",
+    "keywords": ["medication", "medicine", "pill", "drug", "prescription"],
+    "file": "icons/medication.svg"
+  },
+  {
+    "name": "ward",
+    "keywords": ["ward", "bed", "hospital", "room", "inpatient"],
+    "file": "icons/ward.svg"
+  }
+]
