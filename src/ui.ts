@@ -1,8 +1,8 @@
 import { IconMeta, IconSource, PulsIconEntry } from './types';
 
 // --- Configuration ---
-const MATERIAL_METADATA_URL = 'https://data.jsdelivr.com/v1/packages/npm/@material-symbols/svg-400';
-const MATERIAL_CDN_BASE = 'https://cdn.jsdelivr.net/npm/@material-symbols/svg-400@latest/';
+const MATERIAL_METADATA_URL = 'https://fonts.google.com/metadata/icons?key=material_symbols&incomplete=true';
+const MATERIAL_CDN_BASE = 'https://fonts.gstatic.com/s/i/short-term/release/';
 const PULS_REPO = 'niba-dips-no/puls-icons';
 const PULS_ICONS_JSON_URL = 'https://cdn.jsdelivr.net/gh/' + PULS_REPO + '@main/icons.json';
 const PULS_SVG_BASE = 'https://cdn.jsdelivr.net/gh/' + PULS_REPO + '@main/';
@@ -110,35 +110,20 @@ async function loadMetadata() {
 
 async function fetchMaterialMetadata(): Promise<IconMeta[]> {
   try {
-    // First, resolve the latest version
-    var pkgResp = await fetch(MATERIAL_METADATA_URL);
-    if (!pkgResp.ok) throw new Error('HTTP ' + pkgResp.status);
-    var pkgData = await pkgResp.json();
-
-    // Get latest version from tags or first version
-    var latestVersion = pkgData.tags && pkgData.tags.latest ? pkgData.tags.latest : null;
-    if (!latestVersion && pkgData.versions && pkgData.versions.length > 0) {
-      latestVersion = pkgData.versions[0].version;
-    }
-    if (!latestVersion) throw new Error('Could not resolve latest version');
-
-    // Fetch file tree for that version
-    var filesUrl = MATERIAL_METADATA_URL + '@' + latestVersion;
-    var resp = await fetch(filesUrl);
+    var resp = await fetch(MATERIAL_METADATA_URL);
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
-    var data = await resp.json();
+    var text = await resp.text();
+    // Google API returns )]}' prefix
+    var data = JSON.parse(text.substring(5));
 
-    // Navigate to /outlined directory in the file tree to get icon names
-    // (all styles have the same icon names, so we only need to parse one)
-    var files: Array<{ name: string }> = findStyleFiles(data, 'outlined');
-    return files
-      .filter(function (f) {
-        // Only base icons, not -fill variants (we handle fill via URL)
-        return f.name.endsWith('.svg') && !f.name.endsWith('-fill.svg');
+    return data.icons
+      .filter(function (icon: any) {
+        // Only icons that support Material Symbols
+        return !icon.unsupported_families.includes("Material Symbols Outlined");
       })
-      .map(function (f) {
+      .map(function (icon: any) {
         return {
-          name: f.name.replace('.svg', ''),
+          name: icon.name,
           source: 'material' as IconSource,
         };
       });
@@ -146,18 +131,6 @@ async function fetchMaterialMetadata(): Promise<IconMeta[]> {
     console.error('Failed to fetch Material metadata:', err);
     return [];
   }
-}
-
-function findStyleFiles(data: { files?: Array<{ name: string; files?: Array<{ name: string }> }> }, style: string): Array<{ name: string }> {
-  if (!data.files) return [];
-
-  for (var i = 0; i < data.files.length; i++) {
-    var entry = data.files[i];
-    if (entry.name === style && entry.files) {
-      return entry.files;
-    }
-  }
-  return [];
 }
 
 async function fetchPulsMetadata(): Promise<IconMeta[]> {
@@ -349,6 +322,8 @@ function getSvgUrl(icon: IconMeta): string {
     return PULS_SVG_BASE + icon.file;
   }
   // Material: build URL from style + fill + name
-  var fileName = materialFill ? icon.name + '-fill.svg' : icon.name + '.svg';
-  return MATERIAL_CDN_BASE + materialStyle + '/' + fileName;
+  // Pattern: https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/{icon}/default/24px.svg
+  var family = 'materialsymbols' + materialStyle;
+  var variant = materialFill ? 'fill1' : 'default';
+  return MATERIAL_CDN_BASE + family + '/' + icon.name + '/' + variant + '/24px.svg';
 }
